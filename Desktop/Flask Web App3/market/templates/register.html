@@ -1,0 +1,32 @@
+    {% extends 'base.html' %}
+
+        {% block title %} Register {% endblock %}
+
+        {% block content %}
+    <body style="text-align: center;">
+
+        <div >
+            <h3 style="text-align: center;">Register Account</h3><br><br>
+            
+            <form action="" methods="POST" class="form-register" >
+               
+            <div style="text-align: center; width:80rem; padding-left:17rem; ">
+                
+                {{form.username.label()}}
+                {{form.username(class='form-control', placeholder='username')}}
+                {{form.email.label()}}
+                {{form.email(class='form-control', placeholder='email')}}
+                {{form.password1.label()}}
+                {{form.password1(class='form-control', placeholder='password')}}
+                {{form.password2.label()}}
+                {{form.password2(class='form-control', placeholder='Confirm Password')}}  
+                <br>
+
+                {{form.submit(class="btn btn-lg btn-block btn-primary")}}
+
+            </div>
+            </form>
+        </div>
+
+    </body>
+        {% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home Page
+{% endblock %}
+
+<div>
+    {% block content %}
+    <div style="padding: 20px; " >
+        <h3>Welcome Home</h3><br>
+    
+    <div >
+        <img class="img" style="display: flexbox; position: inherit;" src="{{url_for('static', filename = 'img/web_img2.jpg')}}" alt="Home Laptop">
+    </div>
+    </div>
+    {% endblock %}
+</div>
