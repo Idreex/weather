@@ -3,30 +3,35 @@
         {% block title %} Register {% endblock %}
 
         {% block content %}
-    <body style="text-align: center;">
+<body style="text-align: center;">
 
-        <div >
-            <h3 style="text-align: center;">Register Account</h3><br><br>
-            
-            <form action="" methods="POST" class="form-register" >
-               
-            <div style="text-align: center; width:80rem; padding-left:17rem; ">
-                
-                {{form.username.label()}}
-                {{form.username(class='form-control', placeholder='username')}}
-                {{form.email.label()}}
-                {{form.email(class='form-control', placeholder='email')}}
-                {{form.password1.label()}}
-                {{form.password1(class='form-control', placeholder='password')}}
-                {{form.password2.label()}}
-                {{form.password2(class='form-control', placeholder='Confirm Password')}}  
-                <br>
+    <div class="container">
+        <form method="POST" class="form-register" style="color:white">
+            {{ form.hidden_tag() }}
+            <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
+            <h1 class="h3 mb-3 font-weight-normal">
+                Please Create your Account
+            </h1>
+            <br>
+            {{ form.username.label() }}
+            {{ form.username(class="form-control", placeholder="User Name") }}
 
-                {{form.submit(class="btn btn-lg btn-block btn-primary")}}
+            {{ form.email_address.label() }}
+            {{ form.email_address(class="form-control", placeholder="Email Address") }}
 
-            </div>
-            </form>
-        </div>
+            {{ form.password1.label() }}
+            {{ form.password1(class="form-control", placeholder="Password") }}
 
-    </body>
+            {{ form.password2.label() }}
+            {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+
+            <br>
+
+            {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+        </form>
+    </div>
+
+    
+</body>
         {% endblock %}

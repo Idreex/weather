@@ -1,10 +1,12 @@
 from market import db, app
-from flask import render_template, url_for,redirect
+from flask import render_template, url_for,redirect, request, flash
 from market.model import Item, User
 from market.form import Registration
 
 
-@app.route('/', methods= ['POST','GET'])
+
+
+@app.route('/')
 @app.route('/home')
 def home():
 
@@ -25,16 +27,18 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET','POST'])
 def register():
     form = Registration()
     if form.validate_on_submit():
-        user = User(username = form.username.data, email = form.email.data, 
+        user = User(username = form.username.data, email_address = form.email_address.data, 
                     password_hash = form.password1.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('market'))
-
+    if form.errors != {}: # if there are errors from validation.
+        for err_msg in form.errors.values():
+            flash(f'There was an error with creating a user: {err_msg}')
     return render_template('register.html', form = form)
 
 
