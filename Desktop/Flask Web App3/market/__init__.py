@@ -13,9 +13,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///maarket.db'
 db.init_app(app)
 login_manager.init_app(app)
 bcrypt = Bcrypt(app)
-
-
 from market import route
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
 
     
 

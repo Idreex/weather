@@ -3,18 +3,28 @@ from market import bcrypt
 from flask import render_template, url_for,redirect, request, flash
 from market.model import Item, User
 from market.form import Registrationform,Loginform
-from flask_login import login_user
+from flask_login import login_user, login_required, current_user,logout_user
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/home')
+@login_required
 def home():
     
     return render_template('home.html')
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You logged out', 'info')
+    return redirect(url_for('login'))
+
+
 
 @app.route('/market', methods=['GET','POST'])
+@login_required
 def market():
-       
+   
     items = Item.query.all()
         
     return render_template('market.html', item = items)
@@ -40,23 +50,19 @@ def login():
 def register():
     form = Registrationform()
     if form.validate_on_submit():
-        # try:
         gen_pass_hash = bcrypt.generate_password_hash(form.password1.data).decode('utf-8')
-        user_to_create = User(username=form.username.data,
+        user = User(username=form.username.data,
                             email_address=form.email_address.data,
                             password_hash= gen_pass_hash)
-        db.session.add(user_to_create)
+        db.session.add(user)
         db.session.commit()
         flash('Account created successfully', category='success')
+        login_user(user)
+        flash('logged in successfully', category='info')
         return redirect(url_for('market'))
-    # except Exception:
-        flash('Username or Password failed', category='danger')
+    
     if form.errors != {}: 
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a {form.username.data}: {str(err_msg)}',category='danger')
     return render_template('register.html', form = form)
 
-
-# items = Item(id = 1, name='Samsung', price=2134, barcode='012345436', description='about2 Samsung')
-# db.session.add(items)
-# db.session.commit()  
