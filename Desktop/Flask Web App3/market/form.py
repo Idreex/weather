@@ -31,4 +31,13 @@ class Loginform(FlaskForm):
     submit = SubmitField(label="Submit")
 
     
+class PurchaseForm(FlaskForm):
+    submit = SubmitField(label='Buy')
+
+
+
+
+
+
+
     
